@@ -4227,7 +4227,7 @@ unsigned int RtApiWasapi::getDefaultOutputDevice( void )
     }
   }
 
-  return 0;
+  return kInvalidDeviceId;
 }
 
 //-----------------------------------------------------------------------------
@@ -4240,7 +4240,7 @@ unsigned int RtApiWasapi::getDefaultInputDevice( void )
     }
   }
 
-  return 0;
+  return kInvalidDeviceId;
 }
 
 //-----------------------------------------------------------------------------

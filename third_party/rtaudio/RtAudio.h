@@ -295,6 +295,10 @@ class RtAudio
        isDefaultOutput(false), isDefaultInput(false), preferredSampleRate(0), nativeFormats(0) {}
   };
 
+// If there is no input device, it's deviceId will be this.  Could not simply use -1, because
+// deviceId is unsigned int.
+#define kInvalidDeviceId		UINT_MAX		
+
   //! The structure for specifying input or ouput stream parameters.
   struct StreamParameters {
     unsigned int deviceId;     /*!< Device index (0 to getDeviceCount() - 1). */

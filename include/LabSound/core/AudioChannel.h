@@ -24,6 +24,9 @@ public:
         , m_rawPointer(storage)
         , m_silent(false)
     {
+		if (storage == nullptr){
+			m_memBuffer.reset(new AudioFloatArray(length));
+		}
     }
 
     // Manage storage for us.
@@ -45,8 +48,14 @@ public:
     // storage represents external memory not managed by this object.
     void set(float* storage, size_t length)
     {
-        m_memBuffer.reset();//  .clear(); // cleanup managed storage
-        m_rawPointer = storage;
+		if (storage != nullptr){
+			m_memBuffer.reset();//  .clear(); // cleanup managed storage
+			m_rawPointer = storage;
+		}
+		else {
+			m_memBuffer.reset(new AudioFloatArray(length));
+			m_rawPointer = nullptr;
+		}
         m_length = length;
         m_silent = false;
     }
@@ -75,7 +84,7 @@ public:
         m_silent = true;
 
         if (m_memBuffer.get()) m_memBuffer->zero();
-        else memset(m_rawPointer, 0, sizeof(float) * m_length);
+        else if (m_rawPointer != nullptr) memset(m_rawPointer, 0, sizeof(float) * m_length);
     }
 
     // Clears the silent flag.

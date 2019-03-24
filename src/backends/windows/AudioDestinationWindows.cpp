@@ -92,7 +92,16 @@ void AudioDestinationWin::configure()
 
     try
     {
-        dac.openStream(&outputParams, &inputParams, RTAUDIO_FLOAT32, (unsigned int) m_sampleRate, &bufferFrames, &outputCallback, this, &options);
+        dac.openStream(
+			outputParams.deviceId != kInvalidDeviceId ? &outputParams : nullptr, 
+			inputParams.deviceId  != kInvalidDeviceId ? &inputParams  : nullptr, 
+			RTAUDIO_FLOAT32, 
+			(unsigned int) m_sampleRate, 
+			&bufferFrames, 
+			&outputCallback, 
+			this, 
+			&options
+		);
     }
     catch (RtAudioError & e)
     {
